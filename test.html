@@ -1,0 +1,51 @@
+<!docType html>
+<html>
+    <head>
+        <title>A Title</title>
+        <link rel="Shortcut Icon" href="./jnr.ico" type="image/x-icon" />
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        <script src="js/load.js"></script>
+        <script>
+            var root = './js/examples';
+            
+            /**
+             * @param {String} message
+             * @return {String} message
+             */
+            var htmllog = function (message) {
+                var logBook = document.getElementById('logbook'),
+                    logEntry = document.createElement('p');
+                if (!logBook) {
+                    logBook = document.createElement('div');
+                    logBook.id = 'logbook';
+                    document.body.appendChild(logBook);   
+                }
+                logEntry.innerHTML = message;
+                logBook.appendChild(logEntry);
+                if (console) {
+                    console.log(message);
+                }
+                return message;
+            }; 
+            
+            var main = function () {
+                load(['diagram.js', 'prototype.js', 'countries.js'], function () {
+                    htmllog(this.id);
+                    load(['talk.js'], function () {
+                        htmllog(this.id);
+                    }, root);
+                }, root);
+                
+                load(['diagram.js', 'prototype.js', 'countries.js'], function () {
+                    htmllog(this.id);
+                    load(['talk.js'], function () {
+                        htmllog(this.id);
+                    }, root);
+                }, root);    
+            };
+        </script>
+    </head>
+    <body onload="main();" style="background: #666;">
+        
+    </body>
+</html>
